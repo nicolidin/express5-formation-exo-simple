@@ -1,0 +1,18 @@
+version: "3.9"  # Version du format Docker Compose (3.9 est une version récente et stable)
+
+services:  # Section définissant les services (conteneurs) à créer
+  mongo:  # Nom du service MongoDB
+    image: mongo:7.0  # Image Docker à utiliser (MongoDB version 7.0)
+    container_name: express5-mongo  # Nom personnalisé du conteneur (facilite l'identification)
+    restart: always  # Redémarrage automatique du conteneur en cas d'arrêt ou redémarrage du système
+    environment:  # Variables d'environnement passées au conteneur
+      MONGO_INITDB_ROOT_USERNAME: root  # Nom d'utilisateur administrateur MongoDB
+      MONGO_INITDB_ROOT_PASSWORD: example  # Mot de passe de l'utilisateur administrateur
+      MONGO_INITDB_DATABASE: express5db  # Base de données créée automatiquement au démarrage
+    ports:  # Mapping des ports entre l'hôte et le conteneur
+      - "27017:27017"  # Port 27017 de l'hôte vers le port 27017 du conteneur (port par défaut MongoDB)
+    volumes:  # Montage de volumes pour la persistance des données
+      - mongo_data:/data/db  # Volume nommé monté dans /data/db (répertoire de stockage MongoDB)
+
+volumes:  # Section définissant les volumes nommés
+  mongo_data:  # Déclaration du volume nommé pour la persistance des données MongoDB
